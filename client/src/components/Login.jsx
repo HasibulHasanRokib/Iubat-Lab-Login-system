@@ -1,10 +1,40 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { URL } from '../App'
+import Spinner from './spinner'
 const Login = () => {
+
+    const[studentid,setStudentid]=useState()
+    const[password,setPassword]=useState()
+    const [message,setMessage]=useState(false)
+    const [loading,setLoading]=useState(false)
 
     const current = new Date();
     const time = current.toLocaleTimeString("en-US");
     const date=current.toDateString()
+
+    const handleLogin=async(e)=>{
+        e.preventDefault()
+        try {
+            setLoading(true)
+            const res=await fetch(`${URL}/api/student/sign-in`,{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({studentid,password})
+            })
+            const data=await res.json()
+            if(data.success===false){
+                setLoading(false)
+                setMessage(data.message)
+            }
+            setLoading(false)
+            setMessage(data.message)
+            
+        } catch (error) {
+            setLoading(false)
+            setMessage(error.message)
+        }
+
+    }
 
   return (
     <>
@@ -21,21 +51,27 @@ const Login = () => {
        <p>{time}</p>
        </div>
      </header>
-     <section className=' h-36 border-2 flex flex-col justify-center items-center'>
+     <section className=' h-44 border-2 flex flex-col justify-center items-center'>
+
+      
       <div className="flex">
-        <form className='flex gap-4 items-end '>
+
+        <form className='flex gap-4 items-end ' onSubmit={handleLogin}>
         <span className='flex flex-col'>
             <label className='text-sm m-1'>Student ID</label>
-            <input className='border py-1 px-3 outline-slate-300' type="text" id="" placeholder='Enter Your ID' />
+            <input onChange={(e)=>{setStudentid(e.target.value)}} value={studentid} className='border py-1 px-3 outline-slate-300' type="text" id="studentid" placeholder='Enter Your ID' />
         </span>
         <span className='flex flex-col'>
             <label className='text-sm m-1' >Password</label>
-            <input className='border py-1 px-3 outline-slate-300' type="password" id="" placeholder='Enter Password' />
+            <input onChange={(e)=>{setPassword(e.target.value)}} value={password} className='border py-1 px-3 outline-slate-300' type="password" id="password" placeholder='Enter Password' />
         </span>
-        <button className='bg-blue-600 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>Login/Logout</button>
+        <button type='submit' className='bg-blue-600 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>{loading ?<Spinner/>:"Login/Logout"}</button>
         </form>
+
       </div>
       <h5 className='font-bold text-xs mt-5 text-orange-400 opacity-50'>Note:You have to logout when you will leave the lab. Otherwise you will be blocked.</h5>
+      {message && <h3 className='font-semibold  text-xs mt-2 flex items-center justify-between text-red-500'>{message}</h3>}
+     
      </section>
      <section className='border-2 min-h-screen mt-2'>
         <table>
