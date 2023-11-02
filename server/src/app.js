@@ -1,11 +1,13 @@
 const bodyParser = require('body-parser')
 const express=require('express')
 const cors=require('cors')
+const cookieParser=require('cookie-parser')
 const authRouter = require('./router/authRouter')
 
 const app=express()
 app.use(cors({credentials:true,origin:"http://localhost:5173"}))
 app.use(bodyParser.json())
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:true}))
 
 app.use('/api/student',authRouter)

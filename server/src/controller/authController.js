@@ -1,6 +1,8 @@
 const StudentModel=require('../model/studentModel')
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
+const jwt =require('jsonwebtoken');
+const { JWT_ACCESS_KEY } = require('../config/config');
 
 const signUp=async(req,res)=>{
 try {
@@ -45,9 +47,9 @@ const signIn=async(req,res)=>{
         return res.status(400).json({success:false,message:"Password wrong."})
        }
        
-        res.status(200).json({success:true,message:"Login successful.",studentExist})
+       const token=jwt.sign({id:studentExist._id},JWT_ACCESS_KEY)
 
-       
+      res.cookie("accessToken",token).json({success:true,message:"Login successful."})
 
     } catch (error) {
         console.log(error.message)
@@ -55,4 +57,24 @@ const signIn=async(req,res)=>{
     }
 }
 
-module.exports={signUp,signIn}
+const getLoginList=async(req,res)=>{
+try {
+
+const id=req.userId;
+
+if(!id){
+return res.status(400).json({success:false,message:"Credentials Error."})
+}
+
+const options={password:0,email:0,phone:0}
+
+const student=await StudentModel.findById({_id:id},options)
+
+res.status(200).json({success:true,message:"Return student.",student})
+
+} catch (error) {
+ console.log(error.message)   
+}
+}
+
+module.exports={signUp,signIn,getLoginList}

@@ -84,7 +84,7 @@ const Registration = () => {
         <label className='font-semibold text-sm'>Password</label>
         <input className='border py-1 px-2 outline-slate-300' type="password" id='password' onChange={handleChange} value={newStudent.password} placeholder='Enter Password' />
       
-        <button className='bg-blue-600 p-2 mt-4  text-white hover:opacity-90' type="submit">{loading ? <Spinner/>:"Submit"}</button>
+        <button className='bg-blue-600 px-2 py-1 mt-4  text-white hover:opacity-90' type="submit">{loading ? <Spinner/>:"Submit"}</button>
 
        </form>
      </section> 
