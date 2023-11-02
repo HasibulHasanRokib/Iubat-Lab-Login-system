@@ -47,34 +47,14 @@ const signIn=async(req,res)=>{
         return res.status(400).json({success:false,message:"Password wrong."})
        }
        
-       const token=jwt.sign({id:studentExist._id},JWT_ACCESS_KEY)
+        res.status(200).json({success:true,message:"Login successful.",studentExist})
 
-      res.cookie("accessToken",token).json({success:true,message:"Login successful."})
 
     } catch (error) {
-        console.log(error.message)
         return res.status(400).json({success:false,message:"Login failed!"})
     }
 }
 
-const getLoginList=async(req,res)=>{
-try {
 
-const id=req.userId;
 
-if(!id){
-return res.status(400).json({success:false,message:"Credentials Error."})
-}
-
-const options={password:0,email:0,phone:0}
-
-const student=await StudentModel.findById({_id:id},options)
-
-res.status(200).json({success:true,message:"Return student.",student})
-
-} catch (error) {
- console.log(error.message)   
-}
-}
-
-module.exports={signUp,signIn,getLoginList}
+module.exports={signUp,signIn}

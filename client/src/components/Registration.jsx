@@ -32,6 +32,7 @@ const Registration = () => {
     }else{
       setMessage(data.message)
       setLoading(false)
+      setNewStudent({studentid:"",program:"",fullname:"",gender:"",email:"",phone:"",password:""})
 
     }
     
