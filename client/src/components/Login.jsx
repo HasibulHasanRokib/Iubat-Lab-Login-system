@@ -9,6 +9,7 @@ const Login = () => {
     const[studentid,setStudentid]=useState()
     const[password,setPassword]=useState()
     const [message,setMessage]=useState(false)
+    const [studentData,setStudentData]=useState()
 
     const{isLoading,currentStudent,error}=useSelector((state)=>state.student)
 
@@ -40,13 +41,17 @@ const Login = () => {
             })
             const data=await res.json()
             if(data.success===false){
-                dispatch(GET_REQUEST_FAILED(data.message))
+                setMessage(data.message)
+               dispatch(GET_REQUEST_FAILED(data.message))
+
+            }else{
+                dispatch(GET_REQUEST_SUCCESS(data.studentExist))
                 setMessage(data.message)
             }
-            dispatch(GET_REQUEST_SUCCESS(data.studentExist))
-            setMessage(data.message)
+            
             setPassword("")
             setStudentid("")
+            
 
         } catch (error) {
             setMessage(error.message)
@@ -59,7 +64,7 @@ const Login = () => {
 
   return (
     <>
-     <main className='w-4/6 min-h-screen right-0 absolute p-3'>
+     <main className='w-4/6 max-md:w-full min-h-screen right-0 absolute p-3'>
 
      <header className='flex justify-between border-2 p-3'>
      <div className="flex flex-col max-w-[12rem] justify-start items-start gap-1">
@@ -67,7 +72,7 @@ const Login = () => {
         <p className='text-xs'>Seat : {currentStudent.length}/70</p>
         <button className='text-xs text-blue-600 hover:underline'>System logout</button>
        </div>
-       <h1 className='font-semibold text-3xl uppercase'>Ict Center</h1>
+       <h1 className='font-semibold text-3xl max-md:text-lg uppercase'>Ict Center</h1>
        <div className="">
        <p className='font-semibold text-xl'>{date}</p>
        <p className='text-xs'>{time}</p>

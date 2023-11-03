@@ -47,7 +47,7 @@ const signIn=async(req,res)=>{
         return res.status(400).json({success:false,message:"Password wrong."})
        }
        
-        res.status(200).json({success:true,message:"Login successful.",studentExist})
+        res.status(200).json({success:true,message:"Login successful.",studentExist,time:new Date().toLocaleTimeString("en-US")})
 
 
     } catch (error) {

@@ -25,7 +25,7 @@ export const studentSlice=createSlice({
 
     GET_REQUEST_FAILED:(state,action)=>{
         state.isLoading=false,
-        state.currentStudent=[],
+        state.currentStudent=state.currentStudent,
         state.error=action.payload
     }
 
