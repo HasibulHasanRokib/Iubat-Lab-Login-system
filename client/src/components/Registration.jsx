@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Logo from "../assets/IUBAT.png"
 import { URL } from '../App'
 import {FaXmark} from "react-icons/fa6"
-import Spinner from './spinner'
+import Spinner from './Spinner'
 
 const Registration = () => {
 
   const [newStudent,setNewStudent]=useState({studentid:"",program:"",fullname:"",gender:"",email:"",phone:"",password:""})
-
   const [message,setMessage]=useState(false)
   const [loading,setLoading]=useState(false)
-
 
   const handleChange=(e)=>{
     setNewStudent({...newStudent,[e.target.id]:e.target.value})
@@ -33,14 +31,11 @@ const Registration = () => {
       setMessage(data.message)
       setLoading(false)
       setNewStudent({studentid:"",program:"",fullname:"",gender:"",email:"",phone:"",password:""})
-
-    }
-    
+    }    
   } catch (error) {
     console.log(error.message)
     setMessage(error.message)
     setLoading(false)
-
   }
   }
 
@@ -52,10 +47,10 @@ const Registration = () => {
         <h1 className='text-xl capitalize'>iubat computer lab</h1>
         <p className='font-semibold  text-sky-400'>Registration form</p>
       </div>
-     {message && <h3 className='font-semibold my-3 text-xs bg-amber-300 px-2 py-2 flex items-center justify-between text-white'>{message} <FaXmark className='inline-block cursor-pointer' onClick={()=>setMessage(false)} /></h3>}
+     {message && <h3 className='font-semibold my-3 text-xs bg-amber-300 px-2 py-2 flex items-center justify-between text-gray-700'>{message} <FaXmark className='inline-block cursor-pointer' onClick={()=>setMessage(false)} /></h3>}
        <form className='flex flex-col gap-2 border px-3 py-5 mt-5' onSubmit={handleSubmit}>
         <label className='font-semibold text-sm'>Student ID</label>
-        <input className='border py-1 px-2 outline-slate-300' type="text" placeholder='Enter Student ID' id="studentid" onChange={handleChange} value={newStudent.studentid} />
+        <input className='border py-1 px-2 outline-slate-300' type="number" placeholder='Enter Student ID' id="studentid" onChange={handleChange} value={newStudent.studentid} />
       
         <label className='font-semibold text-sm'>Program</label>
         <select className='border py-1 px-2 outline-slate-200' id="program" onChange={handleChange} value={newStudent.program}>
