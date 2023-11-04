@@ -9,7 +9,6 @@ const Login = () => {
     const[studentid,setStudentid]=useState()
     const[password,setPassword]=useState()
     const [message,setMessage]=useState(false)
-    const [studentData,setStudentData]=useState()
 
     const{isLoading,currentStudent,error}=useSelector((state)=>state.student)
 
@@ -17,13 +16,15 @@ const Login = () => {
 
     const [currentTime, setCurrentTime] = useState(new Date());
 
-    useEffect(() => {
-      const intervalId = setInterval(() => {
-        setCurrentTime(new Date());
-      }, 1000);
+    console.log(currentStudent)
+
+    // useEffect(() => {
+    //   const intervalId = setInterval(() => {
+    //     setCurrentTime(new Date());
+    //   }, 1000);
   
-      return () => clearInterval(intervalId);
-    }, []);
+    //   return () => clearInterval(intervalId);
+    // }, []);
 
     const current = new Date();
     const time = currentTime.toLocaleTimeString("en-US");
@@ -32,7 +33,7 @@ const Login = () => {
     const handleLogin=async(e)=>{
         e.preventDefault()
         try {
-            dispatch(GET_REQUEST())
+            // dispatch(GET_REQUEST())
             const res=await fetch(`${URL}/api/student/sign-in`,{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
@@ -42,10 +43,10 @@ const Login = () => {
             const data=await res.json()
             if(data.success===false){
                 setMessage(data.message)
-               dispatch(GET_REQUEST_FAILED(data.message))
+            //    dispatch(GET_REQUEST_FAILED(data.message))
 
             }else{
-                dispatch(GET_REQUEST_SUCCESS(data.studentExist))
+                // dispatch(GET_REQUEST_SUCCESS(data.studentExist))
                 setMessage(data.message)
             }
             
@@ -55,11 +56,28 @@ const Login = () => {
 
         } catch (error) {
             setMessage(error.message)
-            dispatch(GET_REQUEST_FAILED(error.message))
+            // dispatch(GET_REQUEST_FAILED(error.message))
 
         }
 
     }
+    
+    useEffect(()=>{
+    const activeStudent=async()=>{
+    try {
+        dispatch(GET_REQUEST())
+        const res=await fetch(`${URL}/api/student/current-users`)
+        const data=await res.json()
+        dispatch(GET_REQUEST_SUCCESS(data.activeUser))
+        console.log(data.activeUser)
+    } catch (error) {
+        console.log(error.message)
+        dispatch(GET_REQUEST_FAILED(error.message))
+    }
+    }
+    activeStudent()
+    },[])
+  
 
 
   return (
@@ -69,7 +87,7 @@ const Login = () => {
      <header className='flex justify-between border-2 p-3'>
      <div className="flex flex-col max-w-[12rem] justify-start items-start gap-1">
         <h2 className='text-xs'>Computer Lab 1 (CSE Practice Lab) (Only for CSE Department)</h2>
-        <p className='text-xs'>Seat : {currentStudent.length}/70</p>
+        <p className='text-xs'>Seat :{currentStudent && currentStudent.length}/70</p>
         <button className='text-xs text-blue-600 hover:underline'>System logout</button>
        </div>
        <h1 className='font-semibold text-3xl max-md:text-lg uppercase'>Ict Center</h1>
@@ -92,6 +110,7 @@ const Login = () => {
             <input onChange={(e)=>{setPassword(e.target.value)}} value={password} className='border py-1 px-3 outline-slate-300' type="password" placeholder='Enter Password' required />
         </span>
         <button type='submit' className='bg-blue-600 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>{isLoading ?<Spinner/>:"Login/Logout"}</button>
+        {/* <button type='submit' className='bg-blue-600 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>Login/Logout</button> */}
     </form>
 
       </div>
@@ -112,11 +131,11 @@ const Login = () => {
         </thead>   
         <tbody>
          {currentStudent && currentStudent.map((student,index)=>{
-            return <tr key={student._id}>
+            return <tr key={student?._id}>
                 <td>{index+1}</td>
-                <td className=' capitalize'>{student.fullname}</td>
-                <td>{student.studentid}</td>
-                <td>{}</td>
+                <td className=' capitalize'>{student?.fullname}</td>
+                <td>{student?.studentid}</td>
+                <td>{student?.lastLogin[0].timestamp}</td>
             </tr>
          })}
         </tbody>

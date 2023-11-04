@@ -14,9 +14,7 @@ try {
   if(!studentDoc){
   return res.status(400).json({success:false,message:'Token not verify!'})  
   }
-
-
-  req.userId=studentDoc.id
+  req.userId=studentDoc._id
   next()
 
 } catch (error) {

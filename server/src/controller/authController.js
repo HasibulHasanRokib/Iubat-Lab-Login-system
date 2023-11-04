@@ -46,15 +46,53 @@ const signIn=async(req,res)=>{
        if(!passOk){
         return res.status(400).json({success:false,message:"Password wrong."})
        }
-       
-        res.status(200).json({success:true,message:"Login successful.",studentExist,time:new Date().toLocaleTimeString("en-US")})
 
+       studentExist.isLoggedIn=true;
+
+       const current = new Date();
+       const time = current.toLocaleTimeString("en-US");
+       const previousLastLogins = studentExist.lastLogin || [];
+       previousLastLogins.unshift({ timestamp: time });
+       studentExist.lastLogin = previousLastLogins;
+       await studentExist.save();
+           
+       const token = jwt.sign({ _id: studentExist._id }, JWT_ACCESS_KEY);
+        
+        res.cookie('accessToken',token).json({success:true,message:"Login successful."})
+       
+    } catch (error) {
+        return res.status(500).json({success:false,message:"Login failed!"}),
+        console.log(error.message)
+    }
+}
+
+const currentUsers=async(req,res)=>{
+
+  try {
+  const activeUser=await StudentModel.find({isLoggedIn:true})
+  res.status(200).json({activeUser})
+
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+const signOut=async(req,res)=>{
+    try {
+
+        const student=await StudentModel.findOne({_id:req.userId})
+
+        if(!student){
+            return res.status(401).json({success:false,message:"Logout failed."})
+        }
+        student.isLoggedIn=false;
+        await student.save()
+        res.clearCookie('accessToken').json({success:true,message:"Log out successful."})
 
     } catch (error) {
-        return res.status(400).json({success:false,message:"Login failed!"})
+        console.log(error.message)
     }
 }
 
 
-
-module.exports={signUp,signIn}
+module.exports={signUp,signIn,currentUsers,signOut}
