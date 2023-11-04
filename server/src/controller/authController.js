@@ -1,8 +1,7 @@
 const StudentModel=require('../model/studentModel')
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
-const jwt =require('jsonwebtoken');
-const { JWT_ACCESS_KEY } = require('../config/config');
+
 
 const signUp=async(req,res)=>{
 try {
@@ -47,6 +46,14 @@ const signIn=async(req,res)=>{
         return res.status(400).json({success:false,message:"Password wrong."})
        }
 
+       if(studentExist.isLoggedIn===true){
+               
+            studentExist.isLoggedIn=false;
+            await studentExist.save()
+
+            return res.status(200).json({success:true,message:"Log out successful."})
+       }
+
        studentExist.isLoggedIn=true;
 
        const current = new Date();
@@ -55,10 +62,8 @@ const signIn=async(req,res)=>{
        previousLastLogins.unshift({ timestamp: time });
        studentExist.lastLogin = previousLastLogins;
        await studentExist.save();
-           
-       const token = jwt.sign({ _id: studentExist._id }, JWT_ACCESS_KEY);
         
-        res.cookie('accessToken',token).json({success:true,message:"Login successful."})
+       res.status(200).json({success:true,message:"Login successful."})
        
     } catch (error) {
         return res.status(500).json({success:false,message:"Login failed!"}),
@@ -66,7 +71,7 @@ const signIn=async(req,res)=>{
     }
 }
 
-const currentUsers=async(req,res)=>{
+const activeUsers=async(req,res)=>{
 
   try {
   const activeUser=await StudentModel.find({isLoggedIn:true})
@@ -77,22 +82,6 @@ const currentUsers=async(req,res)=>{
   }
 }
 
-const signOut=async(req,res)=>{
-    try {
-
-        const student=await StudentModel.findOne({_id:req.userId})
-
-        if(!student){
-            return res.status(401).json({success:false,message:"Logout failed."})
-        }
-        student.isLoggedIn=false;
-        await student.save()
-        res.clearCookie('accessToken').json({success:true,message:"Log out successful."})
-
-    } catch (error) {
-        console.log(error.message)
-    }
-}
 
 
-module.exports={signUp,signIn,currentUsers,signOut}
+module.exports={signUp,signIn,activeUsers}
