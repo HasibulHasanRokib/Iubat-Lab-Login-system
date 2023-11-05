@@ -1,7 +1,7 @@
 import Registration from './components/Registration'
 import Login from './components/Login'
 
-export const URL = 'https://iubat-computer-lab.onrender.com/';
+export const URL = 'https://iubat-computer-lab.onrender.com';
 
 const App = () => {
 
