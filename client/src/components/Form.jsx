@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { URL } from '../App'
-import Spinner from "./Spinner"
 
 const Form = () => {
 
@@ -49,7 +48,7 @@ const handleLogin=async(e)=>{
        <label className='text-sm m-1' >Password</label>
        <input onChange={(e)=>setPassword(e.target.value)} value={password} className='border py-1 px-3 outline-slate-300' type="password" placeholder='Enter Password' />
    </span>
-   <button type='submit' className='bg-blue-600 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>{loading ? <Spinner/>:"Login/Logout"}</button>
+   <button type='submit' className='bg-blue-600 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>{loading ? "Loading...":"Login/Logout"}</button>
    </form>
      </div>
      <h5 className='font-semibold text-xs text-orange-800 opacity-50'>Note:You have to logout when you will leave the lab. Otherwise you will be blocked.</h5>
