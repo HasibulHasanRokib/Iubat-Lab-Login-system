@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Logo from "../assets/IUBAT.png"
 import { URL } from '../App'
 import {FaXmark} from "react-icons/fa6"
-import Spinner from './Spinner'
+import Spinner from '../components/Spinner'
 
 const Registration = () => {
 
