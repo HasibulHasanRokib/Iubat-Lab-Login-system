@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Logo from "../assets/IUBAT.png"
 import { URL } from '../App'
 import {FaXmark} from "react-icons/fa6"
-import Spinner from '../components/Spinner'
 
 const Registration = () => {
 
@@ -80,7 +79,7 @@ const Registration = () => {
         <label className='font-semibold text-sm'>Password</label>
         <input className='border py-1 px-2 outline-slate-300' type="password" id='password' onChange={handleChange} value={newStudent.password} placeholder='Enter Password' />
       
-        <button className='bg-blue-600 px-2 py-1 mt-4  text-white hover:opacity-90' type="submit">{loading ? <Spinner/>:"Submit"}</button>
+        <button className='bg-blue-600 px-2 py-1 mt-4  text-white hover:opacity-90' type="submit">{loading ? "Loading...":"Submit"}</button>
 
        </form>
      </section> 
