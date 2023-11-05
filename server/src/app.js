@@ -5,7 +5,7 @@ const cookieParser=require('cookie-parser')
 const authRouter = require('./router/authRouter')
 
 const app=express()
-app.use(cors({credentials:true,origin:"https://iubat-lab-login-system.vercel.app/"}))
+app.use(cors({credentials:true,origin:"https://iubat-lab-login-system.vercel.app"}))
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:true}))
