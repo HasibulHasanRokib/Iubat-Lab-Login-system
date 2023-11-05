@@ -6,7 +6,7 @@ const Students = () => {
 const{studentData}=useContext(StudentContext)
 
   return (
-    <section className='border-2 min-h-screen mt-2'>
+    <section className='border-2 min-h-screen mt-2 bg-white'>
         <table>
         <thead>
             <tr>

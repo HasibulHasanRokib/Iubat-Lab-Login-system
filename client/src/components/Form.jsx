@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { URL } from '../App'
+import Spinner from "./Spinner"
 
 const Form = () => {
 
@@ -17,7 +18,6 @@ const handleLogin=async(e)=>{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({studentid,password}),
-                credentials:"include"
             })
             const data=await res.json()
             if(data.success===false){
@@ -37,18 +37,18 @@ const handleLogin=async(e)=>{
 
     }
   return (
-   <section className=' h-auto py-6 border-2 flex flex-col justify-center items-center'> 
+   <section className=' h-auto py-6 border-2 flex flex-col justify-center items-center bg-white'> 
    <div className="flex">
    <form className='flex gap-4 items-end p-5' onSubmit={handleLogin}>
     <span className='flex flex-col'>
     <label className='text-sm m-1'>Student ID</label>
-    <input onChange={(e)=>setStudentid(e.target.value)} value={studentid} className='border py-1 px-3 outline-slate-300' type="text"  placeholder='Enter Your ID'  />          
+    <input onChange={(e)=>setStudentid(e.target.value)} value={studentid} className='border py-1 px-3 outline-slate-300 ' type="text"  placeholder='Enter Your ID'  />          
    </span>
    <span className='flex flex-col'>
        <label className='text-sm m-1' >Password</label>
-       <input onChange={(e)=>setPassword(e.target.value)} value={password} className='border py-1 px-3 outline-slate-300' type="password" placeholder='Enter Password' />
+       <input onChange={(e)=>setPassword(e.target.value)} value={password} className='border py-1 px-3 outline-slate-300 ' type="password" placeholder='Enter Password' />
    </span>
-   <button type='submit' className='bg-blue-600 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>{loading ? "Loading...":"Login/Logout"}</button>
+   <button type='submit' className='bg-gray-700 p-[0.4rem]  text-white  font-semibold text-sm hover:opacity-90'>{loading ?(<Spinner/>):"Login/Logout"}</button>
    </form>
      </div>
      <h5 className='font-semibold text-xs text-orange-800 opacity-50'>Note:You have to logout when you will leave the lab. Otherwise you will be blocked.</h5>

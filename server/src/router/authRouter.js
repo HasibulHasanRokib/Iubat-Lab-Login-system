@@ -2,6 +2,7 @@ const express=require('express');
 const { signUp,signIn,activeUsers} = require('../controller/authController');
 const { registerValidation } = require('../validator/validation');
 const runValidation = require('../validator');
+const isAdmin = require('../middleware/isAdmin');
 
 
 const authRouter=express.Router()

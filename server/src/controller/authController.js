@@ -46,6 +46,11 @@ const signIn=async(req,res)=>{
         return res.status(400).json({success:false,message:"Password wrong."})
        }
 
+       if(studentExist.isBanned){
+        return res.status(400).json({success:false,message:"You are blocked form this system."})
+
+       }
+
        if(studentExist.isLoggedIn===true){
                
             studentExist.isLoggedIn=false;

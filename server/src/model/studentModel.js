@@ -32,8 +32,14 @@ const studentSchema = new mongoose.Schema({
   lastLogin:{
     type:Array,
   },
+  
   isLoggedIn:{
     type:Boolean
+  },
+
+  isBanned:{
+    type:Boolean,
+    default:false
   }
   
 
