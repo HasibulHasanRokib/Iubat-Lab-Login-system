@@ -7,7 +7,7 @@ const instructorRouter = require('./router/instructorRouter')
 const adminRouter = require('./router/adminRoute')
 
 const app=express()
-app.use(cors({credentials:true,origin:"http://localhost:5173"}))
+app.use(cors({credentials:true,origin:"https://iubat-lab-login-system.vercel.app"}))
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:true}))
