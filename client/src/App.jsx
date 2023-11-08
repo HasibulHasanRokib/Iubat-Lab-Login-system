@@ -9,7 +9,7 @@ import PrivateAdminRouter from "./components/PrivateAdminRouter";
 import StudentUpdate from "./pages/StudentUpdate";
 
 
-export const URL = 'http://localhost:3000';
+export const URL = 'https://iubbat-lab-login.onrender.com';
 
 const App = () => {
 
