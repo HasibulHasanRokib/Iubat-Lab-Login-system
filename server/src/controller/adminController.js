@@ -51,7 +51,7 @@ const signIn=async(req,res)=>{
     const{password:pass,...rest}=validAdmin._doc;
 
 
-    res.cookie('access_Token',token).json({success:true,message:"Login successful.",rest})
+    res.cookie('access_Token',token,{httpOnly:false}).json({success:true,message:"Login successful.",rest})
         
 
     } catch (error) {
