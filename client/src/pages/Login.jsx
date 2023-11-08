@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { URL } from '../App'
 import { useDispatch, useSelector } from 'react-redux'
 import { GET_REQUEST, GET_REQUEST_FAILED, GET_REQUEST_SUCCESS } from '../features/instructorSlice'
-import Spinner from '../components/Spinner'
+import Spinner from '../components/spinner'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {

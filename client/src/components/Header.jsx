@@ -3,7 +3,7 @@ import { StudentContext } from "../context/studentContext";
 import { URL } from '../App'
 import { useDispatch } from "react-redux";
 import { SIGNOUT_SUCCESS } from "../features/instructorSlice";
-import Spinner from "./Spinner";
+import Spinner from "./spinner";
 
 const Header = () => {
 
@@ -14,7 +14,7 @@ const Header = () => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  
+
   const dispatch = useDispatch()
 
   const handleLogout = async (e) => {
