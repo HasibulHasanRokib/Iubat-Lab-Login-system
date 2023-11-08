@@ -23,6 +23,7 @@ const Header = () => {
     try {
       setLoading(true)
       const res = await fetch(`${URL}/api/instructor/sign-out`, {
+        mode: 'no-cors',
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),

@@ -20,6 +20,7 @@ const StudentUpdate = () => {
  console.log(info)
  try {
  const res=await fetch(`${URL}/api/student/info/${id}`,{
+  mode: 'no-cors',
   method:"POST",
   headers:{"Content-Type":"application/json"},
   body:JSON.stringify(info)
@@ -42,6 +43,7 @@ setInfo({...info,[e.target.id]:e.target.value})
 const handleDelete=async()=>{
   try {
     const res=await fetch(`${URL}/api/student/delete/${id}`,{
+      mode: 'no-cors',
       method:"Delete"
     })
     const data=await res.json()

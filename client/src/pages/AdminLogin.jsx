@@ -20,6 +20,7 @@ const AdminLogin = () => {
     try {
       dispatch(ADMIN_REQUEST())
       const res = await fetch(`${URL}/api/admin/sign-in`, {
+        mode: 'no-cors',
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
