@@ -27,7 +27,6 @@ const AdminLogin = () => {
         credentials: "include"
       })
       const data = await res.json()
-      console.log(data.rest)
       if (data.success === true) {
         dispatch(ADMIN_REQUEST_SUCCESS(data.rest))
         navigate("/admin-panel")
