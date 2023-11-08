@@ -4,21 +4,21 @@
 
 @layer base {
     body{
-        /* @apply bg-[#f1f5f1]; */
+        @apply text-gray-700;
     }
 }
 @layer components{
     table{
         @apply border w-full;
     }
-    th{
-        @apply p-3 text-sm text-slate-700;
+    thead{
+        @apply p-3 text-sm text-slate-700 font-bold;
     }
     tr{
         @apply border;
     }
     td{
-        @apply p-2 text-center text-sm;
+        @apply p-2 text-center text-sm border;
     }
 
 }

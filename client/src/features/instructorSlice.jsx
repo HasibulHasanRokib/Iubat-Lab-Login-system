@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={  
-    currentUser:null,
+    instructor:null,
     isLoading:false,
     error:null
 }
 
-const userSlice=createSlice({
-name:"user",
+const instructorSlice=createSlice({
+name:"instructor",
 initialState,
 
 reducers:{
@@ -17,24 +17,24 @@ reducers:{
     },
     GET_REQUEST_SUCCESS:(state,action)=>{
         state.isLoading=false
-        state.currentUser=action.payload
+        state.instructor=action.payload
         state.error=null
     },
     GET_REQUEST_FAILED:(state,action)=>{
         state.isLoading=false
-        state.currentUser=null,
+        state.instructor=null,
         state.error=action.payload   
     },
 
     SIGNOUT_SUCCESS:(state)=>{
         state.isLoading=false,
-        state.currentUser=null,
+        state.instructor=null,
         state.error=null
     }
 
 }
 })
 
-export const {GET_REQUEST,GET_REQUEST_SUCCESS,GET_REQUEST_FAILED,SIGNOUT_SUCCESS}=userSlice.actions;
+export const {GET_REQUEST,GET_REQUEST_SUCCESS,GET_REQUEST_FAILED,SIGNOUT_SUCCESS}=instructorSlice.actions;
 
-export default userSlice.reducer
+export default instructorSlice.reducer

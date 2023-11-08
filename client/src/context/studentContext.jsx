@@ -11,9 +11,9 @@ const StudentProvider=({children})=>{
 
     const getAllData=async()=>{
         try {
-            const res=await fetch(`${URL}/api/student/active-users`)
+            const res=await fetch(`${URL}/api/student/active`)
             const data=await res.json()
-            setStudentData(data.activeUser)
+            setStudentData(data.students)
         } catch (error) {
         console.log(error.message)
         }

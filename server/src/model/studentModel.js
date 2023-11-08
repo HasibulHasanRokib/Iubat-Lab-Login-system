@@ -25,14 +25,20 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  
   password: {
     type: String,
     required: true
   },
+
   lastLogin:{
     type:Array,
   },
-  
+
+  lastLogout:{
+    type:Array,
+  },
+
   isLoggedIn:{
     type:Boolean
   },

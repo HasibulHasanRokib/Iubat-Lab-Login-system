@@ -1,7 +1,7 @@
 const jwt=require('jsonwebtoken');
 const { JWT_ACCESS_KEY } = require('../config/config');
 
-const isAdmin=(req,res,next)=>{
+const isInstructor=(req,res,next)=>{
     try {
       const token=req.cookies.accessToken;
       
@@ -9,9 +9,9 @@ const isAdmin=(req,res,next)=>{
         return res.status(400).json({success:false,message:"Invalid credentials."})
       }
 
-      const admin=jwt.verify(token,JWT_ACCESS_KEY)
+      const instructor=jwt.verify(token,JWT_ACCESS_KEY)
       
-      req.adminId=admin.id;
+      req.instructorId=instructor.id;
       next()
 
     } catch (error) {
@@ -19,4 +19,4 @@ const isAdmin=(req,res,next)=>{
     }
 }
 
-module.exports=isAdmin;
+module.exports=isInstructor;

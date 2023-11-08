@@ -23,7 +23,7 @@ const{studentData}=useContext(StudentContext)
                 <td>{index+1}</td>
                 <td className=' capitalize'>{student?.fullname}</td>
                 <td>{student?.studentid}</td>
-                <td>{student?.lastLogin[0].timestamp}</td>
+                <td>{student?.lastLogin[0].timestamp.slice(10)}</td>
             </tr>
          })}    
         </tbody>
