@@ -98,13 +98,45 @@ const activeStudents=async(req,res)=>{
 
 const allStudents=async(req,res)=>{
     try {
-     const students=await StudentModel.find().select({password:0})
+     
+    const search=req.query.search || '';
+    const page=Number(req.query.page) || 1;
+    const limit=Number(req.query.limit) || 2;
+
+
+    const searchRegExp=new RegExp('.*'+ search +'.*','i');
+
+    const filter={
+        $or:[
+            {fullname:{$regex:searchRegExp}},
+            {studentid:{$regex:searchRegExp}},
+            {email:{$regex:searchRegExp}},
+            {phone:{$regex:searchRegExp}},
+        ]
+    }
+
+
+    const options={password:0} 
+    const students= await StudentModel.find(filter,options).limit(limit).skip((page-1)*limit)
+
+    const count=await StudentModel.find(filter).countDocuments()
 
      if(!students){
         return res.status(400).json({success:false,message:"No student return",students})
     }
 
-    res.status(200).json({success:true,message:"All students return",students})
+    res.status(200).json({
+        success:true,
+        message:"All students return",
+        students,
+        pagination:{
+            totalPage:Math.ceil(count/limit),
+            currentPage:page,
+            previousPage:page-1>0?page-1:null,
+            nextPage:page +1 <= Math.ceil(count/limit)?page+1:null
+
+        }
+    })
 
     } catch (error) {
         return res.status(500).json({success:false,message:error.message})

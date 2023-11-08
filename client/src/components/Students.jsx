@@ -10,10 +10,10 @@ const{studentData}=useContext(StudentContext)
         <table>
         <thead>
             <tr>
-                <th>#</th>
-                <th>Student Name</th>
-                <th>Student ID</th>
-                <th>Login Time</th>
+                <td>#</td>
+                <td>Student Name</td>
+                <td>Student ID</td>
+                <td>Login Time</td>
             </tr> 
         </thead>  
 

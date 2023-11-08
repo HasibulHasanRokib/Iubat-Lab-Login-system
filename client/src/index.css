@@ -12,13 +12,13 @@
         @apply border w-full;
     }
     thead{
-        @apply p-3 text-sm text-slate-700 font-bold;
+        @apply p-3 text-sm text-slate-700 font-bold ;
     }
     tr{
-        @apply border;
+        @apply border py-2;
     }
     td{
-        @apply p-2 text-center text-sm border;
+        @apply p-2 text-center text-sm border ;
     }
 
 }
