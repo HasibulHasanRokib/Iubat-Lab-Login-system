@@ -70,25 +70,27 @@ const instructorSignOut=async(req,res)=>{
         return res.status(401).json({success:false,message:"Password required."})  
        }
        const id=req.instructorId;
-       const user=await InstructorModel.find({_id:id})
+       const user=await InstructorModel.findOne({_id:id})
 
        const passOk=bcrypt.compareSync(password,user.password)
+       console.log(passOk)
 
       if(!passOk){
         return res.status(401).json({success:false,message:"Wrong credentials"})  
       }
 
-        const student=await StudentModel.findOne({isLoggedIn:true})
-
-        if(!student){
-        return res.clearCookie('accessToken').json({success:true,message:"Logout successful.",})
+        const student=await StudentModel.find({isLoggedIn:true})
+       
+        if(student.length > 0){
+            student.forEach(async(user)=>{
+                user.isBanned=true;
+                user.isLoggedIn=false;
+                await user.save();
+            })
         }
-
-        student.isBanned=true;
-        student.isLoggedIn=false;
-        await student.save()       
-
-        res.clearCookie('accessToken').json({success:true,message:"Logout successful.",})
+       
+        
+        res.clearCookie('accessToken').json({success:true,message:"Logout successful."})
 
     } catch (error) {
         console.log(error.message)
