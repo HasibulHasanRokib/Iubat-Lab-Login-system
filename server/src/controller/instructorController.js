@@ -53,7 +53,7 @@ const instructorSignIn=async(req,res)=>{
     const{password:pass,confirmPassword:cPass,...rest}=validUser._doc;
 
 
-    res.cookie('accessToken',token).json({success:true,message:"Login successful.",rest})
+    res.cookie('accessToken',token,{httpOnly: true, secure: true}).json({success:true,message:"Login successful.",rest})
         
 
     } catch (error) {
