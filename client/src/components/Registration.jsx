@@ -43,7 +43,7 @@ const Registration = () => {
 
   return (
     <>
-      <section className='border-2 w-2/6 p-3 my-3 mx-2 h-screen fixed z-50 max-md:hidden bg-white'>
+      <section className='border-2 w-2/6 p-3 my-3 mx-2 min:h-screen fixed z-50 max-md:hidden bg-white'>
         <div className=" flex flex-col justify-center items-center">
           <img className='w-12' src={Logo} alt="" />
           <h1 className='text-xl capitalize'>iubat computer lab</h1>
