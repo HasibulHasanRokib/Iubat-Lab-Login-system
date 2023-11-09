@@ -13,7 +13,7 @@ const isInstructor=(req,res,next)=>{
       
       req.instructorId=instructor.id;
       next()
-
+ 
     } catch (error) {
         console.log(error.message)
     }

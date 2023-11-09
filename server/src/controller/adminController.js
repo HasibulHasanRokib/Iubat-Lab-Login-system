@@ -33,7 +33,7 @@ try {
 const signIn=async(req,res)=>{
     try {
     const {email,password}=req.body
-
+ 
     const validAdmin=await AdminModel.findOne({email:email})
 
     if(!validAdmin){

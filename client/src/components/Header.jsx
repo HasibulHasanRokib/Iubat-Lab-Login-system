@@ -19,14 +19,12 @@ const Header = () => {
 
   const handleLogout = async (e) => {
     e.preventDefault()
-    console.log(password)
     try {
       setLoading(true)
-      const res = await fetch(`${URL}/api/instructor/sign-out`, {
-      
+      const res = await fetch(`${URL}/api/instructor/sign-out`, {     
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify( {password} ),
         credentials: "include"
       })
 

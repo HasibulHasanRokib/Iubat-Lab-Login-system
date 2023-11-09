@@ -110,8 +110,8 @@ const AdminPanel = () => {
               <td className='max-md:hidden'>{data.email}</td>
               <td className='uppercase max-md:hidden'>{data.program}</td>
               <td className=' capitalize max-md:hidden'>{data.gender}</td>
-              <td>{data.lastLogin[0].timestamp}</td>
-              <td className='max-md:hidden'>{data.lastLogout[0]===""?"-":data.lastLogout[0]?.timestamp}</td>
+              <td>{data.lastLogin[0]?.timestamp}</td>
+              <td className='max-md:hidden'>{data.lastLogout[0]?.timestamp}</td>
               <td>{data.isBanned===false?<p className='text-green-500 font-bold'>Ok</p>:<p className='text-red-500 font-bold'>Block</p>}</td>
           </tr>
          })}
