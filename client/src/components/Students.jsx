@@ -6,7 +6,7 @@ const Students = () => {
 const{studentData}=useContext(StudentContext)
 
   return (
-    <section className='border-2 min-h-screen mt-2 bg-white'>
+    <section className='border-2  mt-2 bg-white'>
         <table>
         <thead>
             <tr>
@@ -23,7 +23,7 @@ const{studentData}=useContext(StudentContext)
                 <td>{index+1}</td>
                 <td className=' capitalize'>{student?.fullname}</td>
                 <td>{student?.studentid}</td>
-                <td>{student?.lastLogin[0].timestamp.slice(10)}</td>
+                <td>{student?.lastLogin[0].timestamp.slice(11)}</td>
             </tr>
          })}    
         </tbody>
