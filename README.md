@@ -6,7 +6,6 @@
 
 
 
-👉 Live Demo: <a href='https://iubat-lab-login-system.vercel.app/'>Live Demo</a>
 
 <h3>Build with:</h3>
 
